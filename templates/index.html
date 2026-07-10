@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test site</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    {% include 'header.html' %}
+
+
+    {% if user %}
+    <h1>Hi {{ user }}!</h1>
+    {% endif %}
+    <h1>Welcome to my test site</h1>
+    <p>This is just a test paragraph</p>
+
+    <div class="divider"></div>
+
+    {% include 'footer.html' %}
+    
+</body>
+
+</html>

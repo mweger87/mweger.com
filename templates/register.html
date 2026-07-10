@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+    {% include 'header.html' %}
+
+    <h1>Register</h1>
+
+    <form>
+        <div>
+            <label>Username: </label>
+            <input id="username-input">
+        </div>
+        <div>
+            <label>Password: </label>
+            <input id="password-input"  type="password">
+        </div>
+        <div>
+            <label>Password: </label>
+            <input id="password-input-2"  type="password">
+        </div>
+        <button type="button" onClick="register()">Submit</button>
+    </form>
+
+    {% include 'footer.html' %}
+
+<script>
+    async function register() {
+        let username_input = document.getElementById("username-input").value;
+        let password_input = document.getElementById("password-input").value;
+        let password_input_2 = document.getElementById("password-input-2").value;
+        console.log(username_input, password_input, password_input_2);
+
+        if (password_input !== password_input_2) {
+            alert("Passwords do not match");
+            return;
+        }
+
+        const response = await fetch("/login/register", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username: username_input, password: password_input })
+        });
+
+        if (response.ok) {
+            window.location.href = "/login";
+        } else {
+            const data = await response.json();
+            alert(data.error || "Registration failed");
+        }
+    }
+</script>
+
+</html>

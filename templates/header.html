@@ -1,0 +1,15 @@
+
+    <div class="header">
+        <div class="left-column">
+                <a href='/home'>Test Site</a>
+        </div>
+        <div class="right-column">
+                <a href='/home' class="active">Home</a>
+                <a href='/about'>About</a>
+                {% if session.user %}
+                <a href='/logout/api'>Logout</a>
+                {% else %}
+                <a href='/login'>Login</a>
+                {% endif %}
+        </div>
+    </div>

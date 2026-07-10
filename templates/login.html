@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+    {% include 'header.html' %}
+
+    <h1>Login</h1>
+
+    <form class="login-form" id="login-form">
+        <div class="login-form-row">
+            <label>Username: </label>
+            <input id="username-input">
+        </div>
+        <div class="login-form-row">
+            <label>Password: </label>
+            <input id="password-input" type="password">         
+        </div>
+        <button type="submit">Login</button>
+    </form>
+
+    <p>If you do not already have an account: </p>
+    <a href="/login/register">Register</a>
+
+    {% include 'footer.html' %}
+
+
+<script>
+
+    document.getElementById("login-form").addEventListener("submit", 
+        function(e) {
+            e.preventDefault();
+            login();
+        }
+    )
+
+    async function login() {
+        let username = document.getElementById("username-input").value;
+        let password = document.getElementById("password-input").value;
+
+
+        const response = await fetch("/login", {
+            method: "POST",
+            headers: { "Content-type": "application/json" },
+            body: JSON.stringify({ username: username, password: password })
+        })
+
+        if (response.ok) {
+            window.location.href = "/";
+        } else {
+            const data = await response.json();
+            alert(data.error || "Login failed");
+        }
+
+    }
+
+
+</script>
+
+</html>
