@@ -3,51 +3,18 @@
 body {
     width: 66vw;
     margin: auto;
-    background-color: #f8f1e0;
+    background-color: #a8a8a8;
+    color: #313131;
       font-family: "Ubuntu Mono", monospace;
 }
 
-.header {
-    margin: auto;
-    width: 66vw;
-    display: flex;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.178);
-}
-
-.header a
-{
-    margin: 20px 10px;
-    display: inline-block;
-    text-decoration: none;
-    color: black;
-}
-
-
-.right-column {
-    width: 80%;
-    text-align: right;
-}
-
-.left-column {
-    width: 20%;
-}
 
 .divider {
-    margin: auto;
+    margin: 20px auto;
     width: 66vw;
     border-bottom: 1px solid rgba(0, 0, 0, 0.178);
 
 }
 
-.footer {
-    text-align: center;
-}
-.footer p {
-    font-style: italic;
-    color: rgba(0, 0, 0, 0.5);
-}
 
-.login-form-row {
-    padding: 10px 0px;
-}
 

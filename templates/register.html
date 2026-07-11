@@ -15,6 +15,10 @@
             <input id="username-input">
         </div>
         <div>
+            <label>Email: </label>
+            <input id="email-input">
+        </div>
+        <div>
             <label>Password: </label>
             <input id="password-input"  type="password">
         </div>
@@ -30,6 +34,7 @@
 <script>
     async function register() {
         let username_input = document.getElementById("username-input").value;
+        let email_input = document.getElementById("email-input").value;
         let password_input = document.getElementById("password-input").value;
         let password_input_2 = document.getElementById("password-input-2").value;
         console.log(username_input, password_input, password_input_2);
@@ -39,10 +44,10 @@
             return;
         }
 
-        const response = await fetch("/login/register", {
+        const response = await fetch("/register", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ username: username_input, password: password_input })
+            body: JSON.stringify({ username: username_input, email: email_input, password: password_input })
         });
 
         if (response.ok) {

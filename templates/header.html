@@ -1,15 +1,14 @@
-
+<link rel="stylesheet" href=" {{ url_for('static', filename='css/header.css') }}">
     <div class="header">
-        <div class="left-column">
-                <a href='/home'>Test Site</a>
+        <div class="header-left-column">
+                <a href='/home'>MWEGER.COM</a>
         </div>
-        <div class="right-column">
-                <a href='/home' class="active">Home</a>
+        <div class="header-right-column">
+                <a href='/home'>Home</a>
+                <a href="/projects">Projects</a>
                 <a href='/about'>About</a>
-                {% if session.user %}
-                <a href='/logout/api'>Logout</a>
-                {% else %}
-                <a href='/login'>Login</a>
+                {% if user %}
+                <a href='/logout'>Logout</a>
                 {% endif %}
         </div>
     </div>

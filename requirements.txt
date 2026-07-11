@@ -1,2 +1,7 @@
 pymysql
 python-dotenv
+flask
+flask_mysqldb
+mysqlclient
+werkzeug
+guicorn

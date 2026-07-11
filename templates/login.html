@@ -3,6 +3,7 @@
 <head>
     <title>Login</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
 </head>
 
     {% include 'header.html' %}
@@ -21,8 +22,10 @@
         <button type="submit">Login</button>
     </form>
 
-    <p>If you do not already have an account: </p>
-    <a href="/login/register">Register</a>
+    <p id="error-text" style="color: red"></p>
+
+    <p>If you do not already have an account: <a href="/register">Register</a></p>
+    
 
     {% include 'footer.html' %}
 
@@ -39,6 +42,8 @@
     async function login() {
         let username = document.getElementById("username-input").value;
         let password = document.getElementById("password-input").value;
+        let errorText = document.getElementById('error-text');
+        errorText.textContent = "";
 
 
         const response = await fetch("/login", {
@@ -48,10 +53,12 @@
         })
 
         if (response.ok) {
+            console.log("log in success");
             window.location.href = "/";
         } else {
+            console.log("Log in failed");
             const data = await response.json();
-            alert(data.error || "Login failed");
+            errorText.textContent = "Incorrect username or password";
         }
 
     }

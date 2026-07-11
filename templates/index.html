@@ -3,21 +3,29 @@
 <head>
     <title>Test site</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
 </head>
 <body>
 
-    {% include 'header.html' %}
+
+    <div class="main-content">
+        <h1>MWEGER.COM</h1>
+        <div class="card-container">
+            <a href="/projects" class="card">
+                <h1>Projects</h1>
+                <p>What im working on</p>
+            </a>
+            <a href="/about" class="card">
+                <h1>About</h1>
+                <p>My education and work experience</p>
+            </a>
+        </div>
+    </div>
 
 
-    {% if user %}
-    <h1>Hi {{ user }}!</h1>
-    {% endif %}
-    <h1>Welcome to my test site</h1>
-    <p>This is just a test paragraph</p>
 
-    <div class="divider"></div>
 
-    {% include 'footer.html' %}
+
     
 </body>
 

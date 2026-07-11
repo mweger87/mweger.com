@@ -1,0 +1,55 @@
+:root {
+    --card-border-color: #d8d8d8;
+    --card-border-radius: 6px;
+    --card-background-color: #404040;
+    --card-text-color: #e7e7e7;
+    --card-max-width: 33%;
+    --card-min-width: 300px;
+    --card-min-height: 200px; 
+    --card-box-shadow: 4px 4px 8px 1px rgba(0,0,0,0.25);
+
+    --hover-border-color: rgb(146, 178, 193);
+}
+
+.main-content {
+    height: 100vh;
+    margin: auto auto;
+    align-content: center;
+    text-align: center;
+}
+
+.card-container {
+    margin: auto auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+.card {
+    border: 1px solid var(--card-border-color);
+    border-radius: var(--card-border-radius);
+    background-color: var(--card-background-color);
+    color: var(--card-text-color);
+    min-width: var(--card-min-width);
+    max-width: var(--card-max-width);
+    margin: 5px 5px;
+    min-height: var(--card-min-height);
+    box-shadow: var(--card-box-shadow);
+    align-content: center;
+    text-decoration: none;
+
+    transition: border-color ease-in-out .2s;
+    transition: scale ease-in-out 0.2s;
+
+    &:hover {
+        border-color: var(--hover-border-color);
+        scale: 1.01;
+    }
+}
+
+.card p {
+    width: 66%;
+    margin: auto;
+}

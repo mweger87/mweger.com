@@ -3,13 +3,40 @@
 <head>
     <title>About Us</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}">
 </head>
+<body>
+
 
     {% include 'header.html' %}
 
-    <h1>About Us</h1>
-    <p>Flask is great, im just working on my skills.</p>
+    <h1>About</h1>
+    <p>Hello, welcome to my website. My name is Max Weger. I am a full stack 
+        developer interested in WebDev, AI, and Cybersecurity.<p>
+
+    <div class="divider"></div>
+
+    <h2>Work History</h2>
+    <div class="work-row">
+        <h3>Project Coordinator</h3>
+        <p style="font-weight: bold; font-style: italic">California State University, San Bernardino, Center for Cyber and AI</p>
+        <p>2023 - Current</p>
+    </div>
+    
+    <div class="divider"></div>
+
+    <h2>Education</h2>
+
+    <div class="education-row">
+        <h3>B.S. Computer Science</h3>
+        <p style="font-weight: bold; font-style: italic">California State University, San Bernardino</p>
+        <p>2025</p>
+    </div>
+
+
+
 
     {% include 'footer.html' %}
 
+</body>
 </html>

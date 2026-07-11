@@ -1,0 +1,8 @@
+.footer {
+    margin-top: 50px;
+    text-align: center;
+}
+.footer p {
+    font-style: italic;
+    color: rgba(0, 0, 0, 0.5);
+}
