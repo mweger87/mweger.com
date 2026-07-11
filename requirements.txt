@@ -4,4 +4,4 @@ flask
 flask_mysqldb
 mysqlclient
 werkzeug
-guicorn
+gunicorn
