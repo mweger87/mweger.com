@@ -1,8 +1,8 @@
 :root {
-    --card-border-color: #d8d8d8;
+    --card-border-color: #989898;
     --card-border-radius: 6px;
     --card-background-color: #404040;
-    --card-text-color: #e7e7e7;
+    --card-text-color: #b6b6b6;
     --card-max-width: 33%;
     --card-min-width: 300px;
     --card-min-height: 200px; 
@@ -28,7 +28,7 @@
 }
 
 .card {
-    border: 1px solid var(--card-border-color);
+    border: 3px solid var(--card-border-color);
     border-radius: var(--card-border-radius);
     background-color: var(--card-background-color);
     color: var(--card-text-color);
@@ -39,6 +39,7 @@
     box-shadow: var(--card-box-shadow);
     align-content: center;
     text-decoration: none;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.694);
 
     transition: border-color ease-in-out .2s;
     transition: scale ease-in-out 0.2s;
