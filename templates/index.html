@@ -9,6 +9,24 @@
 
 
     <div class="main-content">
+        <div>
+            <svg 
+            viewBox="0 0 100 100" 
+            width="150" 
+            height="150"
+            >
+                <path id="morph-shape" d="
+                M90,10
+                C90,36.67 90,63.33 90,90
+                C63.33,90 36.67,90 10,90
+                C10,63.33 10,36.67 10,10
+                C36.67,10 63.33,10 90,10
+                Z" 
+                fill="none" stroke="#404040" stroke-width="2"
+                style="filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.35))" 
+                />
+            </svg>
+        </div>
         <h1>MWEGER.COM</h1>
         <div class="card-container">
             <a href="/projects" class="card">
@@ -28,5 +46,23 @@
 
     
 </body>
+<script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+<script>
+    const trianglePath = "M50,10 C63.33,36.67 76.67,63.33 90,90 C63.33,90 36.67,90 10,90 C16.67,76.67 23.33,63.33 30,50 C36.67,36.67 43.33,23.33 50,10 Z";
+    const squarePath = "M90,10 C90,36.67 90,63.33 90,90 C63.33,90 36.67,90 10,90 C10,63.33 10,36.67 10,10 C36.67,10 63.33,10 90,10 Z";
+    const circlePath = "M90,50 C90,72.09 72.09,90 50,90 C27.91,90 10,72.09 10,50 C10,27.91 27.91,10 50,10 C72.09,10 90,27.91 90,50 Z";
+
+    anime({
+        targets: '#morph-shape',
+        d: [
+            { value: squarePath, duration: 0, endDelay: 1000 },
+            { value: circlePath, duration: 800, endDelay: 1000 },
+            { value: trianglePath, duration: 800, endDelay: 1000 },
+            { value: squarePath, duration: 800, endDelay: 0 }
+        ],
+        easing: 'easeInOutQuad',
+        loop: true,
+    });
+</script>
 
 </html>
