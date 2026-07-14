@@ -2,13 +2,15 @@
     --card-border-color: #989898;
     --card-border-radius: 6px;
     --card-background-color: #404040;
-    --card-text-color: #b6b6b6;
+    --card-text-color: #c6c6c6;
     --card-max-width: 33%;
     --card-min-width: 300px;
     --card-min-height: 200px; 
     --card-box-shadow: 4px 4px 8px 1px rgba(0,0,0,0.25);
 
-    --hover-border-color: rgb(146, 178, 193);
+
+    --hover-border-color: rgb(221, 221, 221);
+    /*--hover-border-color: rgb(146, 178, 193);*/
 }
 
 .main-content {
