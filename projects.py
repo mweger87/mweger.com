@@ -8,7 +8,7 @@ projects_bp = Blueprint('projects', __name__)
 def get_projects_from_db():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute(
-        'select p.id, p.title, p.description, l.link, l.projectID from Projects p inner join ProjectLinks l on p.id = l.projectID'
+        'select p.id, p.title, p.description, l.linkName, l.link, l.projectID from Projects p inner join ProjectLinks l on p.id = l.projectID'
     )
     projects = cursor.fetchall()
     return jsonify(projects)

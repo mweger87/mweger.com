@@ -7,21 +7,15 @@
 <body>
 
     {% include 'header.html' %}
+    
     <h1>Projects</h1>
-    
-    <div class="divider"></div>
-
-    <h2>mweger.com</h2>
-    <p><a href='/'>mweger.com</a> is my personal website. I develop the site in my own time 
-        writing each line by hand - no AI. The github repo can be found here: <a target="_blank" href="https://github.com/mweger87/mweger.com">Github Repo</a>
-    </p>
-
-    <h2>localcode</h2>
-    <p><a href='https://github.com/mweger87/localcode'>LocalCode</a>is a harness for local llms, specifically Ornith models.</p>
-
-    
+    <div id="projects-container">
+        <p style="font-style: italic">Pulling data...</p>
+    </div>
 
     {% include 'footer.html' %}
 
 </body>
+<script src="{{ url_for('static', filename='js/projects.js') }}"></script>
+
 </html>
