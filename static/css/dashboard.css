@@ -1,0 +1,54 @@
+:root {
+    --card-border-color: #989898;
+    --card-border-radius: 6px;
+    --card-background-color: #404040;
+    --card-background-color-lighter: rgba(184, 184, 184, 0.25);
+    --card-text-color: #c6c6c6;
+    --card-max-width: 33%;
+    --card-min-width: 300px;
+    --card-min-height: 200px; 
+    --card-box-shadow: 4px 4px 8px 1px rgba(0,0,0,0.25);
+
+}
+
+
+body {
+    width: 100%
+}
+
+.main-content {
+    width: 90vw;
+    margin: auto;
+}
+
+.my-form {
+    max-width: var(--card-max-width);
+    margin: 40px auto;
+    border: 2px solid var(--card-border-color);
+    background-color: var(--card-background-color);
+    border-radius: var(--card-border-radius);
+    padding: 20px 20px;
+    box-shadow: var(--card-box-shadow);
+    color: var(--card-text-color);
+    width: fit-content;
+
+}
+
+.my-form label {
+    display: inline-block;
+    min-width: 60px;
+    margin-top: 4px;
+}
+
+.my-form input {
+    border-radius: 4px;
+    background-color: rgba(184, 184, 184, 0.25);
+    color: var(--card-text-color);
+}
+
+.my-form button {
+    margin: 6px 0px;
+    width: 100%;
+    padding: 4px 0px;
+    background-color: rgb(121, 140, 127);
+}

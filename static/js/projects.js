@@ -22,7 +22,7 @@
 
             let linksHTML = '';
             for (const link of project.links) {
-                if (link.url == 'https://mweger.com') {
+                if (link.url == 'https://mweger.com' || link.url.startsWith('/')) {
                     linksHTML += ` <a href="${link.url}">${link.name}</a>`;
                 } else {
                     linksHTML += ` <a target="_blank" href="${link.url}">${link.name}</a>`;

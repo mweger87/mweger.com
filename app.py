@@ -39,6 +39,10 @@ def about():
 def projects():
     return render_template('projects.html')
 
+@app.route("/rebuild-dashboard")
+def rebuild_dashboard():
+    return render_template('rebuildDashboard.html', user=session.get("username"), userID=session.get("id"))
+
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':

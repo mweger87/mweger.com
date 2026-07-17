@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rebuild Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+<body>
+
+    {% include 'header.html' %}
+
+    <div class="main-content" id="main-content">
+
+    </div>
+
+
+    {% include 'footer.html' %}
+
+</body>
+<script>
+    window.user = {{ user|tojson }};
+    window.userID = {{ userID|tojson }};
+</script>
+
+<script src="{{ url_for('static', filename='js/rebuild.js') }}"></script>
+
+</html>
