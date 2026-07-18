@@ -22,6 +22,8 @@ mysql = MySQL(app)
 
 from projects import projects_bp
 app.register_blueprint(projects_bp)
+from dashboard import dashboard_bp
+app.register_blueprint(dashboard_bp)
 
 
 
