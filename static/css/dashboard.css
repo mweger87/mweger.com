@@ -58,3 +58,36 @@ body {
         cursor: pointer;
     }
 }
+
+#shopping-cart {
+    max-width: var(--card-max-width);
+    margin: 40px auto;
+    border: 2px solid var(--card-border-color);
+    background-color: var(--card-background-color);
+    border-radius: var(--card-border-radius);
+    padding: 20px 20px;
+    box-shadow: var(--card-box-shadow);
+    color: var(--card-text-color);
+    width: fit-content;
+}
+
+#shopping-cart h2 {
+    margin: 0 0;
+    margin-bottom: 10px;
+}
+
+#shopping-cart table {
+    border-collapse: collapse;
+    border-radius: 6px;
+}
+
+
+
+.cart-row td, .cart-row th {
+    border: 1px solid rgba(255,255,255,1);
+    padding: 8px;
+}
+
+#shopping-cart a {
+    color: var(--card-text-color);
+}

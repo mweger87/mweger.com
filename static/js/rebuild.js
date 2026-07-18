@@ -3,8 +3,10 @@ let mainContentDiv = document.getElementById('main-content');
 let saveHeaderDiv = document.getElementById('save-header');
 let setupFormDiv = document.getElementById('setup-form');
 let selectSaveDiv = document.getElementById('select-save');
+let shoppingCartDiv = document.getElementById('shopping-cart');
 
 let currentSaves = [];
+let shoppingcart = [];
 let rowID = '';
 let make = '';
 let model = '';
@@ -53,15 +55,7 @@ function load_save_select(data) {
     selectSaveDiv.insertAdjacentHTML('beforeend', html)
 }
 
-async function load_shopping_cart() {
-    let resposne = await fetch(`/api/get_shopping_cart`, {
-        mehtod: "POST",
-        headers: { "Content-type": "application/json" },
-        body: json.stringify({ rowID: rowID })
-    })
-    const data = response.json();
-    console.log(data);
-}
+
 
 async function load_header() {
     let html = `
@@ -78,6 +72,7 @@ async function load_save(saveID) {
     model = save.model;
     rowID = save.saveID;
     await load_dashboard();
+    await get_shopping_cart();
 }
 
 
@@ -106,8 +101,52 @@ async function saveStartForm() {
 
 }
 
+
+
+async function get_shopping_cart() {
+    const response = await fetch(`/api/get_shopping_cart`, {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({ rowID: rowID })
+    })
+    const data = await response.json();
+    for (const row of data) {
+        console.log("row: ", row)
+    }
+    return data;
+}
+
+async function load_shopping_cart() {
+    shoppingcart = await get_shopping_cart();
+    html = `
+    <div class='table-container'>
+    <h2>Shopping cart</h2>
+    <table>
+        <tr class='cart-row'>
+            <th>Item</th>
+            <th>Link</th>
+        </tr>
+    `;
+    for (const item of shoppingcart) {
+        html += `
+        <tr class='cart-row'>
+            <td>${item.itemName}</td>
+            <td><a href="${item.link}" target="_blank">Link</a></td>
+        </tr>
+        `;
+    }
+    html += `
+    </table>
+    </div>
+    `;
+    shoppingCartDiv.style.display = 'block'
+    shoppingCartDiv.insertAdjacentHTML('beforeend', html);
+
+}
+
 async function load_dashboard() {
-    await load_header()
+    await load_header();
+    await load_shopping_cart();
 }
 
 
