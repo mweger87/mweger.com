@@ -22,7 +22,7 @@ def get_shopping_cart():
     save_row = data.get('rowID')
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute(
-        'select s.year, s.make, s.model, c.itemName, c.link, c.saveID from DashboardSaves s inner join cart c on s.id = c.saveID where s.id = %s',
+        'select s.year, s.make, s.model, c.id as itemID, c.itemName, c.link, c.saveID from DashboardSaves s inner join cart c on s.id = c.saveID where s.id = %s',
         (save_row,)
     )
     cart_items = cursor.fetchall()

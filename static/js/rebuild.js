@@ -118,12 +118,14 @@ async function get_shopping_cart() {
 
 async function load_shopping_cart() {
     shoppingcart = await get_shopping_cart();
+    let buttonIDs = [];
     html = `
 
     <table>
         <tr class='cart-row'>
             <th>Item</th>
             <th>Link</th>
+            <th>Actions</th>
         </tr>
     `;
     for (const item of shoppingcart) {
@@ -131,8 +133,11 @@ async function load_shopping_cart() {
         <tr class='cart-row'>
             <td>${item.itemName}</td>
             <td><a href="${item.link}" target="_blank">Link</a></td>
+            <td><button id="edit-button-${item.itemID}" class='basic-button'>Edit</button></td>
         </tr>
         `;
+        buttonIDs.push(item.itemID);
+
     }
     html += `
     </table>
@@ -140,13 +145,51 @@ async function load_shopping_cart() {
     `;
     shoppingCartDiv.style.display = 'block'
     shoppingCartDiv.insertAdjacentHTML('beforeend', html);
+    await initalizeActionButtons(buttonIDs);
 
+}
+
+async function initalizeActionButtons(buttonIDs) {
+    console.log("Button ids: ", buttonIDs)
+    for (const id of buttonIDs) {
+        let button = document.getElementById(`edit-button-${id}`);
+        button.onclick = function() {
+            var modal = document.getElementById('edit-item-modal')
+            var span = document.getElementsByClassName("close")[0];
+            modal.style.display = "block";
+
+
+            var modalContentDiv = document.getElementById('edit-item-modal-content')
+
+            html = `
+                <span class="close">&times;</span>
+                <p>Edit item ${id}</p>
+            `
+            modalContentDiv.innerHTML = html;
+
+
+
+
+
+            span.onclick = function() {
+                modal.style.display = "none";
+            }
+
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        }
+    }
 }
 
 async function openAddItem() {
     var modal = document.getElementById('add-item-modal')
     var btn = document.getElementById('add-item-button')
     var span = document.getElementsByClassName("close")[0];
+    
+
 
     btn.onclick = function () {
         modal.style.display = "block";
