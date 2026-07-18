@@ -119,8 +119,7 @@ async function get_shopping_cart() {
 async function load_shopping_cart() {
     shoppingcart = await get_shopping_cart();
     html = `
-    <div class='table-container'>
-    <h2>Shopping cart</h2>
+
     <table>
         <tr class='cart-row'>
             <th>Item</th>
@@ -141,6 +140,27 @@ async function load_shopping_cart() {
     `;
     shoppingCartDiv.style.display = 'block'
     shoppingCartDiv.insertAdjacentHTML('beforeend', html);
+
+}
+
+async function openAddItem() {
+    var modal = document.getElementById('add-item-modal')
+    var btn = document.getElementById('add-item-button')
+    var span = document.getElementsByClassName("close")[0];
+
+    btn.onclick = function () {
+        modal.style.display = "block";
+    }
+
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
 
 }
 

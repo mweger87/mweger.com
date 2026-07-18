@@ -91,3 +91,25 @@ body {
 #shopping-cart a {
     color: var(--card-text-color);
 }
+
+.button-row-container {
+    display: flex;
+    margin-bottom: 5px;
+}
+
+.button-row-right {
+    margin-left: auto;
+}
+
+.basic-button {
+    border-radius: 6px;
+    padding: 3px 7px;
+    background-color: rgb(221, 213, 213);
+    border-color: rgb(188, 185, 185);
+    cursor: pointer;
+    color: rgb(47, 47, 47);
+
+    &:hover {
+        border-color: rgba(255,255,255,1)
+    }
+}

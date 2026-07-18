@@ -3,6 +3,7 @@
 <head>
     <title>Rebuild Dashboard</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/card.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/modal.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
 </head>
@@ -19,10 +20,25 @@
         <div id="setup-form">
         </div>
         <div id="shopping-cart" style="display: none">
+            <div class='table-container'>
+                <h2>Shopping cart</h2>
+                <div class='button-row-container'>
+                    <div class='button-row-left'>
+                    </div>
+                    <div class='button-row-right'>
+                    <button onClick=openAddItem() class="basic-button" id='add-item-button'>Add Item</button>
+                    </div>
+                </div>
         </div>
 
     </div>
 
+    <div class="modal" id="add-item-modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>test</p>
+        </div>
+    </div>
 
     {% include 'footer.html' %}
 
