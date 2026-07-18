@@ -10,18 +10,9 @@ def get_dashboard_saves_from_db():
     userID = data.get('userID')
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute(
-        'select u.username, u.id, s.year, s.make, s.model from Users u inner join DashboardSaves s on u.id = s.userID where u.id = %s',
+        'select u.username, u.id as userID, s.year, s.make, s.model, s.id as saveID from Users u inner join DashboardSaves s on u.id = s.userID where u.id = %s',
         (userID,)
     )
     saves = cursor.fetchall()
     return jsonify(saves)
 
-
-@dashboard_bp.route("/api/render_dashboard", methods=["POST"])
-def render_dashboard():
-    data = request.get_json()
-
-    year = data.get('year')
-    make = data.get('make')
-    model = data.get('model')
-    return render_template('dashboard_files/dashboard_content.html', year=year, make=make, model=model)
