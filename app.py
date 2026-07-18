@@ -45,12 +45,6 @@ def projects():
 def rebuild_dashboard():
     return render_template('rebuildDashboard.html', user=session.get("username"), userID=session.get("id"))
 
-@app.route("/api/render_dashboard")
-def render_dashboard():
-    year = request.args.get('year')
-    make = request.args.get('make')
-    model = request.args.get('model')
-    return render_template('dashboard_files/dashboard_content.html', year=year, make=make, model=model)
 
 @app.route("/api/render_dashboard_start_form")
 def render_dashboard_start_from():
