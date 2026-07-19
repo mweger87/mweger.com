@@ -26,6 +26,19 @@
     word-break: break-all;
 }
 
+.modal-content a {
+    color: #022b56;
+}
+
+.modal-content input {
+    padding: 4px 4px;
+    border-radius: 4px;
+    background: rgb(237, 237, 237);
+    border-color: rgba(0, 0, 0, 0.5);
+    color: #333333;
+    width: 100%;
+}
+
 .close {
     color: #aaa;
     float: right;

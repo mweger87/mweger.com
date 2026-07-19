@@ -125,6 +125,7 @@ async function load_shopping_cart() {
         <tr class='cart-row'>
             <th>Item</th>
             <th>Link</th>
+            <th>Price</th>
             <th>Actions</th>
         </tr>
     `;
@@ -133,6 +134,7 @@ async function load_shopping_cart() {
         <tr class='cart-row'>
             <td>${item.itemName}</td>
             <td><a href="${item.link}" target="_blank">Link</a></td>
+            <td>${item.price}</td>
             <td><button id="edit-button-${item.itemID}" class='basic-button'>Edit</button></td>
         </tr>
         `;
@@ -166,11 +168,34 @@ async function initalizeActionButtons(buttonIDs) {
                 <h3>Editing item: ${editItem.itemName} - ${editItem.itemID}</h3>
                 <h4>Fill in the input fields to update the item. Leave fields empty to leave them unchanged.</h4>
                 <p>Name: ${editItem.itemName}</p>
-                <input placeholder="${editItem.itemName}"></input>
+                <input placeholder="${editItem.itemName}" id='name-input'></input>
                 <p>Link: <a href="${editItem.link}" target="_blank">${editItem.link}</a></p>
-                <input placeholder="${editItem.link}"></input>
+                <input placeholder="${editItem.link}" id='link-input'></input>
+                <p>Price: ${editItem.price}</p>
+                <input placeholder="${editItem.price}" id='price-input'></input>
+                <button id='save-button-${editItem.itemID}' class='basic-button'>Save</button>
             `
             modalContentDiv.innerHTML = html;
+
+
+            let saveButton = document.getElementById(`save-button-${editItem.itemID}`)
+            saveButton.onclick = async function () {
+                let newName = document.getElementById('name-input').value || editItem.itemName;
+                let newLink = document.getElementById('link-input').value || editItem.link;
+                let newPrice = document.getElementById('price-input').value || editItem.price;
+                const response = await fetch(`/api/edit_shopping_cart`, {
+                    method: "POST",
+                    headers: { "Content-type": "application/json" },
+                    body: JSON.stringify({
+                        cartRow: editItem.itemID,
+                        name: newName,
+                        link: newLink,
+                        price: newPrice
+                    })
+                });
+                const data = await response.json()
+                console.log("Edit response: ", data)
+            }
 
             var span = document.getElementsByClassName("close")[1];
 

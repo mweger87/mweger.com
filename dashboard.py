@@ -22,8 +22,23 @@ def get_shopping_cart():
     save_row = data.get('rowID')
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute(
-        'select s.year, s.make, s.model, c.id as itemID, c.itemName, c.link, c.saveID from DashboardSaves s inner join cart c on s.id = c.saveID where s.id = %s',
+        'select s.year, s.make, s.model, c.id as itemID, c.itemName, c.link, c.price, c.saveID from DashboardSaves s inner join cart c on s.id = c.saveID where s.id = %s',
         (save_row,)
     )
     cart_items = cursor.fetchall()
     return jsonify(cart_items)
+
+@dashboard_bp.route("/api/edit_shopping_cart", methods=["POST"])
+def edit_shopping_cart():
+    data = request.get_json()
+    cart_row = data.get('cartRow')
+    new_name = data.get('name')
+    new_link = data.get('link')
+    new_price = data.get('price')
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute(
+        'update cart set itemName = %s, link = %s, price = %s where id = %s',
+        (new_name, new_link, new_price, cart_row)
+    )
+    mysql.connection.commit()
+    return jsonify({"success": True})
