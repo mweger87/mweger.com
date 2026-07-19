@@ -4,6 +4,7 @@ let saveHeaderDiv = document.getElementById('save-header');
 let setupFormDiv = document.getElementById('setup-form');
 let selectSaveDiv = document.getElementById('select-save');
 let shoppingCartDiv = document.getElementById('shopping-cart');
+let shoppingCartTableDiv = document.getElementById('shopping-cart-table');
 
 let currentSaves = [];
 let shoppingcart = [];
@@ -146,7 +147,8 @@ async function load_shopping_cart() {
     </div>
     `;
     shoppingCartDiv.style.display = 'block'
-    shoppingCartDiv.insertAdjacentHTML('beforeend', html);
+    shoppingCartTableDiv.innerHTML = '';
+    shoppingCartTableDiv.insertAdjacentHTML('beforeend', html);
     await initalizeActionButtons(buttonIDs);
 
 }
@@ -195,6 +197,8 @@ async function initalizeActionButtons(buttonIDs) {
                 });
                 const data = await response.json()
                 console.log("Edit response: ", data)
+                modal.style.display = "none"
+                await load_shopping_cart()
             }
 
             var span = document.getElementsByClassName("close")[1];
