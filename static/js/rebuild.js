@@ -155,21 +155,24 @@ async function initalizeActionButtons(buttonIDs) {
         let button = document.getElementById(`edit-button-${id}`);
         button.onclick = function() {
             var modal = document.getElementById('edit-item-modal')
-            var span = document.getElementsByClassName("close")[0];
             modal.style.display = "block";
 
+            const editItem = shoppingcart.find(item => item.itemID === id);
 
             var modalContentDiv = document.getElementById('edit-item-modal-content')
 
             html = `
                 <span class="close">&times;</span>
-                <p>Edit item ${id}</p>
+                <h3>Editing item: ${editItem.itemName} - ${editItem.itemID}</h3>
+                <h4>Fill in the input fields to update the item. Leave fields empty to leave them unchanged.</h4>
+                <p>Name: ${editItem.itemName}</p>
+                <input placeholder="${editItem.itemName}"></input>
+                <p>Link: <a href="${editItem.link}" target="_blank">${editItem.link}</a></p>
+                <input placeholder="${editItem.link}"></input>
             `
             modalContentDiv.innerHTML = html;
 
-
-
-
+            var span = document.getElementsByClassName("close")[1];
 
             span.onclick = function() {
                 modal.style.display = "none";
