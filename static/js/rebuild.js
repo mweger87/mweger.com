@@ -216,17 +216,10 @@ async function initalizeActionButtons(buttonIDs) {
     }
 }
 
-async function openAddItem() {
+
+async function initalizeOpenItem() {
     var modal = document.getElementById('add-item-modal')
-    var btn = document.getElementById('add-item-button')
     var span = document.getElementsByClassName("close")[0];
-    
-
-
-    btn.onclick = function () {
-        modal.style.display = "block";
-    }
-
     span.onclick = function() {
         modal.style.display = "none";
     }
@@ -237,11 +230,19 @@ async function openAddItem() {
         }
     }
 
+
+}
+
+async function openAddItem() {
+
+    var modal = document.getElementById('add-item-modal')
+    modal.style.display = "block";
 }
 
 async function load_dashboard() {
     await load_header();
     await load_shopping_cart();
+    await initalizeOpenItem();
 }
 
 
