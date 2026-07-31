@@ -43,24 +43,24 @@ def role_required(role):
 @app.route("/")
 @app.route("/home")
 def home():
-    return render_template('index.html', user=session.get("username"))
+    return render_template('index.html', user=session.get("username"), role=session.get("role"))
 
 @app.route("/admin")
 @role_required('admin')
 def admin_dashboard():
-    return render_template('admin.html', user=session.get("username"))
+    return render_template('admin.html', user=session.get("username"), role=session.get("role"))
 
 @app.route("/about")
 def about():
-    return render_template('about.html')
+    return render_template('about.html', user=session.get("username"), role=session.get("role"))
 
 @app.route("/projects")
 def projects():
-    return render_template('projects.html')
+    return render_template('projects.html', user=session.get("username"), role=session.get("role"))
 
 @app.route("/rebuild-dashboard")
 def rebuild_dashboard():
-    return render_template('rebuildDashboard.html', user=session.get("username"), userID=session.get("id"))
+    return render_template('rebuildDashboard.html', user=session.get("username"), userID=session.get("id"), role=session.get("role"))
 
 
 @app.route("/api/render_dashboard_start_form")
@@ -69,6 +69,8 @@ def render_dashboard_start_from():
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
+    if (session.get("loggedin")):
+        return render_template('index.html', role=session.get("role"))
     if request.method == 'POST':
         data = request.get_json()
         username = data.get('username')
@@ -88,7 +90,7 @@ def login():
         else:
             msg = 'Log in failed'
             return jsonify({"error": "Log in failed"}), 401
-    return render_template('login.html')
+    return render_template('login.html', user=session.get("username"), role=session.get("role"))
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
