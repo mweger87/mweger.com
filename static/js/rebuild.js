@@ -175,7 +175,10 @@ async function initalizeActionButtons(buttonIDs) {
                 <input placeholder="${editItem.link}" id='link-input'></input>
                 <p>Price: ${editItem.price}</p>
                 <input placeholder="${editItem.price}" id='price-input'></input>
-                <button id='save-button-${editItem.itemID}' class='basic-button'>Save</button>
+                <div style="display: flex;">
+                <button id='save-button-${editItem.itemID}' class='basic-button' style='margin-top: 6px;'>Save</button>
+                <button id='cancel-button-${editItem.itemID}' class='basic-button' style='margin-top: 6px;'>Cancel</button>
+                </div>
             `
             modalContentDiv.innerHTML = html;
 
@@ -199,6 +202,11 @@ async function initalizeActionButtons(buttonIDs) {
                 console.log("Edit response: ", data)
                 modal.style.display = "none"
                 await load_shopping_cart()
+            }
+
+            let cancelButton = document.getElementById(`cancel-button-${editItem.itemID}`)
+            cancelButton.onclick = async function () {
+                
             }
 
             var span = document.getElementsByClassName("close")[1];

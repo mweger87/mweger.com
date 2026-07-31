@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/card.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/modal.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+<body>
+
+    {% include 'header.html' %}
+
+    <div class="main-content" id="main-content">  
+        <div class="container">
+            <h1>Admin Dashboard</h1>
+            <div id="welcome-div"></div>
+        </div>
+        <div class="container" id="projects-container"></div>
+        
+
+    </div>
+
+
+    {% include 'footer.html' %}
+
+</body>
+<script>
+    window.user = {{ user|tojson }};
+
+
+    async function initalize_dashboard() {
+        const user = window.user;
+        if (user) {
+            const welcomeDiv = document.getElementById('welcome-div')
+            const html = `Welcome back ${user}`
+            welcomeDiv.innerHTML = html;
+        }
+    }
+
+    async function load_projects() {
+        const response = await fetch('/api/get_projects_from_db');
+        const projects = await response.json();
+        let html = "<h2>Projects</h2><table>";
+
+        let projectsDiv = document.getElementById('projects-container')
+
+        projects.forEach((project, i) => {
+            html += `
+                <tr>
+                    <td>${project.title}</td>
+                    <td>${project.description}</td>
+                </tr>
+            `
+        })
+        html += `</table>`
+
+        projectsDiv.innerHTML = html;
+    }
+
+
+    initalize_dashboard();
+    load_projects();
+</script>
+
+<script src="{{ url_for('static', filename='js/rebuild.js') }}"></script>
+
+</html>

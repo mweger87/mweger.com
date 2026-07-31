@@ -3,17 +3,30 @@
 body {
     width: 66vw;
     margin: auto;
-    background-color: #a8a8a8;
-    color: #313131;
+    background: linear-gradient(to right, rgb(18, 0, 76), rgb(19, 57, 139), rgb(19, 57, 139), rgb(18,0,76)); 
+    color: #c6d9e9;
       font-family: "Ubuntu Mono", monospace;
 }
 
 
 .divider {
     margin: 20px auto;
-    width: 66vw;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.178);
+    width: 100%;
+    border-bottom: 1px solid rgba(1, 223, 252, 0.464);
 
+}
+
+.container {
+    background-color: rgba(32, 0, 76, 0.597);
+    border: 1px solid #c6d9e952;
+    margin: 1rem 0;
+    padding: 1rem 1rem;
+    border-radius: 3px
+}
+
+.container a {
+    font-style: italic;
+    color: #16adf4;
 }
 
 

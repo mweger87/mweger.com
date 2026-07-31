@@ -2,7 +2,11 @@
 .header {
     margin: auto;
     display: flex;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.178);
+    border: 1px solid #c6d9e952;
+    border-top: none;
+    background-color: rgba(32, 0, 76, 0.597);
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
 }
 
 .header a
@@ -10,7 +14,7 @@
     margin: 20px 10px;
     display: inline-block;
     text-decoration: none;
-    color: black;
+    color: #c6d9e9;
 }
 
 

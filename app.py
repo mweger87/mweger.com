@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 from flask_mysqldb import MySQL
 import MySQLdb.cursors
 import re 
+from functools import wraps
 
 
 load_dotenv()
@@ -26,12 +27,28 @@ from dashboard import dashboard_bp
 app.register_blueprint(dashboard_bp)
 
 
+def role_required(role):
+    def decorator(f):
+        @wraps(f)
+        def wrapped(*args, **kwargs):
+            if not session.get('loggedin'):
+                return redirect(url_for('login'))
+            if session.get('role') != role:
+                return jsonify({"error": "Forebidden"}), 403
+            return f(*args, **kwargs)
+        return wrapped
+    return decorator
 
 
 @app.route("/")
 @app.route("/home")
 def home():
     return render_template('index.html', user=session.get("username"))
+
+@app.route("/admin")
+@role_required('admin')
+def admin_dashboard():
+    return render_template('admin.html', user=session.get("username"))
 
 @app.route("/about")
 def about():
@@ -65,6 +82,7 @@ def login():
             session['loggedin'] = True
             session['id'] = account['id']
             session['username'] = account['username']
+            session['role'] = account['role']
             msg = 'Log in success'
             return jsonify({"success": True})
         else:

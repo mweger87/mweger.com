@@ -17,7 +17,9 @@
             projectMap[row.projectID].links.push({ name: row.linkName, url: row.link });
         }
 
-        for (const projectID in projectMap) {
+        const projectIDs = Object.keys(projectMap);
+
+        projectIDs.forEach((projectID, i) => {
             const project = projectMap[projectID];
 
             let linksHTML = '';
@@ -29,7 +31,7 @@
                 }
             }
 
-            const projectHTML = `
+            let projectHTML = `
             <div>
                 <h2>${project.title}</h2>
                 <p>${project.description}</p>
@@ -38,8 +40,12 @@
             <div>
             `;
 
+            if (i < projectIDs.length - 1) {
+                projectHTML += `<div class="divider"></div>`
+            }
+
             projectsDiv.insertAdjacentHTML('beforeend', projectHTML);
-        }
+        });
     }
 
     initalize_projects()
