@@ -46,11 +46,26 @@
 
         let projectsDiv = document.getElementById('projects-container')
 
+        html += `
+            <tr>
+                <td>Project ID</td>
+                <td>Title</td>
+                <td>Description</td>
+                <td>Link ID</td>
+                <td>Link</td>
+                <td>Link Name</td>
+            </tr>
+        `
         projects.forEach((project, i) => {
+            console.log("project: ", project)
             html += `
                 <tr>
+                    <td>${project.id}</td>
                     <td>${project.title}</td>
                     <td>${project.description}</td>
+                    <td>${project.linkID}</td>
+                    <td>${project.link}</td>
+                    <td>${project.linkName}</td>
                 </tr>
             `
         })
