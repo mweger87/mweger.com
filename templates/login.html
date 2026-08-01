@@ -9,24 +9,25 @@
 
     {% include 'header.html' %}
 
-    <h1>Login</h1>
+    <div class="container">
+        <h1>Login</h1>
 
-    <form class="login-form" id="login-form">
-        <div class="login-form-row">
-            <label>Username: </label>
-            <input id="username-input">
-        </div>
-        <div class="login-form-row">
-            <label>Password: </label>
-            <input id="password-input" type="password">         
-        </div>
-        <button type="submit">Login</button>
-    </form>
+        <form class="login-form" id="login-form">
+            <div class="login-form-row">
+                <label>Username: </label>
+                <input id="username-input">
+            </div>
+            <div class="login-form-row">
+                <label>Password: </label>
+                <input id="password-input" type="password">         
+            </div>
+            <button type="submit">Login</button>
+        </form>
 
-    <p id="error-text" style="color: red"></p>
+        <p id="error-text" style="color: red"></p>
 
-    <p>If you do not already have an account: <a href="/register">Register</a></p>
-    
+        <p>If you do not already have an account: <a href="/register">Register</a></p>
+    </div>
 
     {% include 'footer.html' %}
 

@@ -3,7 +3,7 @@
 body {
     width: 66vw;
     margin: auto;
-    background: linear-gradient(to right, rgb(18, 0, 76), rgb(19, 57, 139), rgb(19, 57, 139), rgb(18,0,76)); 
+    background: linear-gradient(to right, rgb(0,3, 45), rgb(5, 14, 33), rgb(5,14,33), rgb(0, 3, 45)); 
     color: #c6d9e9;
       font-family: "Ubuntu Mono", monospace;
 }
