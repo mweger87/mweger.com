@@ -110,6 +110,47 @@ body {
     color: rgb(47, 47, 47);
 
     &:hover {
-        border-color: rgba(255,255,255,1)
+        border-color: rgba(255,255,255,1);
+    }
+}
+
+table {
+    border: 1px solid #c6d9e952;
+    border-radius: 4px;
+    min-width: 100%;
+
+    &:hover {
+        border-color: #34d4fb;
+    }
+}
+
+.container table a {
+
+    display: inline-block;
+    &:hover {
+        scale: 1.005;
+    }
+}
+
+.container table button {
+    margin: 0px auto;
+}
+
+td {
+    max-width: 400px;
+    border: 1px solid #c6d9e952;
+    border-radius: 2px;
+    padding: .3rem 1rem;
+
+    &:hover {
+        background-color: rgba(1, 57, 178, 0.515);
+        border-color: #34d4fb;
+    }
+}
+
+tr {
+
+    &:hover {
+        background-color: rgba(0, 36, 114, 0.515);
     }
 }

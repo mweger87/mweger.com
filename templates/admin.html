@@ -17,10 +17,21 @@
         <div class="container">
             <h1>Admin Dashboard</h1>
             <div id="welcome-div"></div>
+            <div class="button-container">
+                <button style="margin-top: 1rem;" id="toggle-projects-button">Projects</button>
+            </div>
         </div>
         <div class="container" id="projects-container"></div>
         
 
+    </div>
+
+    <div class="modal" id="edit-project-modal">
+        <div class="modal-content">
+            <span class="close" id="edit-project-close">&times;</span>
+            <div id="edit-modal-content">
+            </div>
+        </div>
     </div>
 
 
@@ -32,6 +43,7 @@
 
 
     async function initalize_dashboard() {
+
         const user = window.user;
         if (user) {
             const welcomeDiv = document.getElementById('welcome-div')
@@ -40,46 +52,189 @@
         }
     }
 
+    async function initalize_widget_buttons() {
+        const projectsBtn = document.getElementById('toggle-projects-button');
+        const projectsDiv = document.getElementById('projects-container');
+
+        projectsBtn.innerText = 'Hide projects'
+        projectsBtn.onclick = () => {
+            if (projectsDiv.style.display == 'none') {
+                projectsDiv.style.display = 'block';
+                projectsBtn.innerText = 'Hide projects'
+            } else {
+                projectsDiv.style.display = 'none';
+                projectsBtn.innerText = 'Show projects'
+            }
+        }
+    }
+
     async function load_projects() {
         const response = await fetch('/api/get_projects_from_db');
         const projects = await response.json();
         let html = "<h2>Projects</h2><table>";
-
-        let projectsDiv = document.getElementById('projects-container')
-
         html += `
             <tr>
                 <td>Project ID</td>
                 <td>Title</td>
                 <td>Description</td>
+                <td>Links</td>
                 <td>Link ID</td>
                 <td>Link</td>
                 <td>Link Name</td>
+                <td>Actions</td>
             </tr>
         `
-        projects.forEach((project, i) => {
+        let projectsDiv = document.getElementById('projects-container')
+        let projectMap = {};
+
+        for (const row of projects) {
+            if (!projectMap[row.projectID]) {
+                projectMap[row.projectID] = {
+                    id: row.id,
+                    title: row.title,
+                    description: row.description,
+                    links: []
+                }
+            }
+            projectMap[row.projectID].links.push({ name: row.linkName, url: row.link, linkID: row.linkID })
+        }
+        const projectIDs = Object.keys(projectMap)
+
+        
+        projectIDs.forEach((projectID, i) => {
+            const project = projectMap[projectID];
             console.log("project: ", project)
+            console.log("links: ", project.links)
+            
             html += `
                 <tr>
                     <td>${project.id}</td>
                     <td>${project.title}</td>
                     <td>${project.description}</td>
-                    <td>${project.linkID}</td>
-                    <td>${project.link}</td>
-                    <td>${project.linkName}</td>
-                </tr>
+                    <td>${project.links.length}</td>
+                    <td>
             `
+            let k = 0;
+            for (const link of project.links) {
+                console.log("link: ", link);
+                html += `${link.linkID}`;
+                if (k < project.links.length -1) {
+                    html += '<br>';
+                } else {
+                    html += '</td><td>'
+                }
+                k++;
+            }
+            let j = 0;
+            for (const link of project.links) {
+                console.log("link: ", link);
+                html += `<a href='${link.url}' target=_blank>${link.url}</a>`;
+                if (j < project.links.length -1) {
+                    html += ' , <br>';
+                } else {
+                    html += '</td><td>'
+                }
+                j++;
+            }
+            let l = 0;
+            for (const link of project.links) {
+                console.log("link: ", link);
+                html += `${link.name}`;
+                if (l < project.links.length -1) {
+                    html += ' , <br>';
+                } else {
+                    html += '</td>'
+                }
+                l++;
+            }
+            html += `
+            <td>
+                <button id="edit-button-${projectID}">Edit</button>
+            </td>
+            </tr>
+            `
+
         })
         html += `</table>`
 
         projectsDiv.innerHTML = html;
+
+        projectIDs.forEach((projectID) => {
+            let editButton = document.getElementById(`edit-button-${projectID}`);
+            let modal = document.getElementById('edit-project-modal');
+            let contentDiv = document.getElementById('edit-modal-content');
+            
+
+            editButton.onclick = () => {
+                console.log(`Edit button ${projectID} clicked`);
+                let content = '';
+                let project = projectMap[projectID];
+
+                content = `
+                    <h1>Editing project: ${project.id}</h1>
+                    <table class='edit-project-table'>
+                        <tr>
+                            <td>Title: </td>
+                            <td><input value="${project.title}"></td>
+                        </tr>
+                        <tr>
+                            <td>Description: </td>
+                            <td><textarea>${project.description}</textarea></td>
+                        </tr>
+                        <tr>
+                        </table>
+                        <div style="display: flex;">
+                            <h3>Links: ${project.links.length} </h3>
+                            <button style="margin-top: auto; margin-bottom: auto; margin-left: auto; height:fit-content;">Add Link</button>
+                        </div>
+                `;
+
+                for (const link of project.links) {
+                    content += `
+                    <table class='edit-project-table'>
+                    <tr>
+                        <td>link ID: </td>
+                        <td>${link.linkID}</td>
+                    </tr>
+                    <tr>
+                        <td>link name: </td>
+                        <td><input value="${link.name}"></td>
+                    </tr>
+                    <tr>
+                        <td>link url: </td>
+                        <td><input value="${link.url}"></td>
+                    </tr>
+                    <tr>
+                        <td>Actions:</td>
+                        <td><button>Save</button><button style='margin-left: 4px;'>Delete</button></td>
+                    </tr>
+                    </table>
+                    <br>
+                    `
+                }
+
+
+                contentDiv.innerHTML = content;
+                modal.style.display = "block";
+            }
+
+            let span = document.getElementById('edit-project-close');
+            span.onclick = function(){
+                modal.style.display = "none";
+            }
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        })
     }
 
 
     initalize_dashboard();
+    initalize_widget_buttons();
     load_projects();
 </script>
 
-<script src="{{ url_for('static', filename='js/rebuild.js') }}"></script>
 
 </html>
