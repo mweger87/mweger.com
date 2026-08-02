@@ -1,7 +1,7 @@
 :root {
     --card-border-color: #2fbee2;
     --card-border-radius: 6px;
-    --card-background-color: #190357;
+    --card-background-color: rgba(0, 23, 76, 0.515);
     --card-text-color: #c6d9e9;
     --card-max-width: 33%;
     --card-min-width: 300px;

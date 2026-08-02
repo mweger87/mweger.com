@@ -3,7 +3,7 @@
 body {
     width: 66vw;
     margin: auto;
-    background: linear-gradient(to right, rgb(0,3, 45), rgb(5, 14, 33), rgb(5,14,33), rgb(0, 3, 45)); 
+    background: linear-gradient(to right, rgb(0, 16, 45), rgb(5, 14, 33), rgb(5,14,33), rgb(0, 16, 45)); 
     color: #c6d9e9;
       font-family: "Ubuntu Mono", monospace;
 }
@@ -16,18 +16,56 @@ body {
 
 }
 
-.container {
-    background-color: rgba(32, 0, 76, 0.597);
+.container, .container-minwidth {
+    background-color: rgba(0, 23, 76, 0.515);
     border: 1px solid #c6d9e952;
     margin: 1rem 0;
     padding: 1rem 1rem;
     border-radius: 3px
 }
 
-.container a {
+.container-minwidth {
+    width: fit-content;
+    margin: 1rem auto;
+    padding: 1rem 2.5rem;
+}
+
+.container a, .container-minwidth a {
     font-style: italic;
     color: #16adf4;
+    display: inline-block;
+
+    transition: scale .1s ease-in-out;
+    &:hover {
+        scale: 1.05;
+    }
 }
 
 
+
+input {
+    background-color:rgba(0, 15, 48, 0.515) ;
+    border-color: rgba(1, 223, 252, 0.464);
+    border-radius: 4px;
+    color: #c6d9e9;
+
+    &:focus {
+        border-color: rgba(1, 223, 252, 0.464);
+        outline: 1px solid rgba(1, 223, 252, 0.249);
+    }
+}
+
+button {
+    background-color:rgba(0, 15, 48, 0.515) ;
+    border-color: rgba(1, 223, 252, 0.464);
+    border-radius: 4px;
+    color: #c6d9e9;
+    padding: 4px 10px;
+
+
+    &:hover {
+        cursor: pointer;
+        background-color: rgba(1, 223, 252, 0.464);
+    }
+}
 

@@ -4,9 +4,10 @@
     display: flex;
     border: 1px solid #c6d9e952;
     border-top: none;
-    background-color: rgba(32, 0, 76, 0.597);
+    background-color: rgba(0, 23, 76, 0.515);
     border-bottom-left-radius: 3px;
     border-bottom-right-radius: 3px;
+    padding: 0px 1rem;
 }
 
 .header a
@@ -15,6 +16,11 @@
     display: inline-block;
     text-decoration: none;
     color: #c6d9e9;
+
+    transition: .1s ease-in-out; 
+    &:hover {
+        scale: 1.05;
+    }
 }
 
 
@@ -25,4 +31,11 @@
 
 .header-left-column {
     min-width: 20%;
+}
+
+.hover-scale {
+    transition: .1s ease-in-out; 
+    &:hover {
+        scale: 1.05;
+    }
 }
