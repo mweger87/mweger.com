@@ -163,23 +163,22 @@
             let editButton = document.getElementById(`edit-button-${projectID}`);
             let modal = document.getElementById('edit-project-modal');
             let contentDiv = document.getElementById('edit-modal-content');
-            
+            let project = projectMap[projectID];
 
             editButton.onclick = () => {
                 console.log(`Edit button ${projectID} clicked`);
                 let content = '';
-                let project = projectMap[projectID];
 
                 content = `
                     <h1>Editing project: ${project.id}</h1>
                     <table class='edit-project-table'>
                         <tr>
                             <td>Title: </td>
-                            <td><input value="${project.title}"></td>
+                            <td><input value="${project.title}" id='title-input-${project.id}'></td>
                         </tr>
                         <tr>
                             <td>Description: </td>
-                            <td><textarea>${project.description}</textarea></td>
+                            <td><textarea id='description-input-${project.id}'>${project.description}</textarea></td>
                         </tr>
                         <tr>
                         </table>
@@ -198,25 +197,87 @@
                     </tr>
                     <tr>
                         <td>link name: </td>
-                        <td><input value="${link.name}"></td>
+                        <td><input value="${link.name}" id='link-name-input-${link.linkID}'</td>
                     </tr>
                     <tr>
                         <td>link url: </td>
-                        <td><input value="${link.url}"></td>
+                        <td><input value="${link.url}" id='link-url-input-${link.linkID}'></td>
                     </tr>
                     <tr>
                         <td>Actions:</td>
-                        <td><button>Save</button><button style='margin-left: 4px;'>Delete</button></td>
+                        <td><button id='edit-link-save-${link.linkID}'>Save</button><button style='margin-left: 4px;'>Delete</button></td>
                     </tr>
                     </table>
-                    <br>
+                    <br> 
                     `
                 }
 
+                content += `
+                    <div style='text-align: right;'>
+                        <button id='edit-save-${projectID}'>Save</button>
+                    </div>
+                `;
 
                 contentDiv.innerHTML = content;
                 modal.style.display = "block";
+
+                const editSaveBtn = document.getElementById(`edit-save-${projectID}`) 
+                editSaveBtn.onclick = async function() {
+                    let title = document.getElementById(`title-input-${projectID}`).value;
+                    let description = document.getElementById(`description-input-${projectID}`).value;
+                    console.log('title: ', title)
+                    console.log('description: ', description)
+
+                    const response = await fetch(`/api/save-project`, {
+                        method: "POST",
+                        headers: { "Content-type": "application/json" },
+                        body: JSON.stringify({ id: projectID, title: title, description: description })
+                    })
+
+                    if (response.ok) {
+                        console.log("save success");
+                    }
+                    else {
+                        console.log("save failed");
+                        const data = await response.json()
+                        console.log("save failed error: ", data);
+                    }
+                }
+
+                for (const link of project.links) {
+                    console.log("test3");
+                    let saveButton = document.getElementById(`edit-link-save-${link.linkID}`)
+                    saveButton.onclick = async function() {
+                        let name = document.getElementById(`link-name-input-${link.linkID}`).value
+                        let url = document.getElementById(`link-url-input-${link.linkID}`).value
+
+                        const response = await fetch('/api/save-link', {
+                            method: "POST",
+                            headers: { "Content-type": "application/json" },
+                            body: JSON.stringify({
+                                id: link.linkID,
+                                name: name,
+                                url: url
+                            })
+                        })
+
+                        if (response.ok) {
+                            console.log("save success");
+                        }
+                        else {
+                            console.log("save failed");
+                            const data = await response.json()
+                            console.log("Error: ", data)
+                        }
+                    }
+                }
             }
+
+            console.log("test1");
+
+
+            console.log("test2");
+
 
             let span = document.getElementById('edit-project-close');
             span.onclick = function(){

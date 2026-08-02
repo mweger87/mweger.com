@@ -19,25 +19,18 @@ app.config['MYSQL_HOST'] = os.environ['MYSQL_HOST']
 app.config['MYSQL_USER'] = os.environ['MYSQL_USER']
 app.config['MYSQL_PASSWORD'] = os.environ['MYSQL_PASSWORD']
 app.config['MYSQL_DB'] = os.environ['MYSQL_DB']
-mysql = MySQL(app)
+from extensions import mysql, role_required
+mysql.init_app(app)
 
 from projects import projects_bp
 app.register_blueprint(projects_bp)
 from dashboard import dashboard_bp
 app.register_blueprint(dashboard_bp)
+from admin import admin_bp
+app.register_blueprint(admin_bp)
 
 
-def role_required(role):
-    def decorator(f):
-        @wraps(f)
-        def wrapped(*args, **kwargs):
-            if not session.get('loggedin'):
-                return redirect(url_for('login'))
-            if session.get('role') != role:
-                return jsonify({"error": "Forebidden"}), 403
-            return f(*args, **kwargs)
-        return wrapped
-    return decorator
+
 
 
 @app.route("/")
