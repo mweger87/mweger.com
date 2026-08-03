@@ -63,3 +63,23 @@ def create_project():
         return jsonify({"success": True, "id": new_id})
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500
+
+@admin_bp.route("/api/delete-project", methods=["POST"])
+@role_required('admin')
+def delete_project():
+    data = request.get_json()
+    id = data.get('id')
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    try:
+        cursor.execute(
+            'delete from ProjectLinks where projectID = %s ',
+            (id,)
+        )
+        cursor.execute(
+            'delete from Projects where id = %s',
+            (id,)
+        )
+        mysql.connection.commit()
+        return jsonify({"success": True})
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
