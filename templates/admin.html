@@ -185,11 +185,11 @@
                 <table>
                 <tr>
                     <td>Title</td>
-                    <td><input></td>
+                    <td ><input id='add-title-input'></td>
                 </tr>
                 <tr>
                     <td>Description</td>
-                    <td><textarea></textarea></td>
+                    <td><textarea id='add-description-input'></textarea></td>
                 </tr>
                 </table>
                 <div style="display: flex">
@@ -201,20 +201,20 @@
 
             const addLinkBtn = document.getElementById('add-link-button');
             addLinkBtn.onclick = function() {
+                numLinks++;
                 let content = `
                 <table style="margin-top: 1rem;">
                     <tr>
                         <td>Link name: </td>
-                        <td><input></td>
+                        <td><input id='add-link-name-${numLinks}'></td>
                     </tr>
                     <tr>
                         <td>URL: </td>
-                        <td><input></td>
+                        <td><input id='add-link-url-${numLinks}'></td>
                     </tr>
                 </tr>
                 `
                 contentDiv.insertAdjacentHTML ('beforeend', content);
-                numLinks++;
                 let numLinksText = document.getElementById('num-links')
                 numLinksText.innerText = `Links: ${numLinks}`
                 console.log("Links: ", numLinks)
@@ -223,8 +223,45 @@
 
             let createProjectBtn = document.getElementById('add-project-create');
             createProjectBtn.onclick = async function() {
-                let title = document.getElementById();
-                let description = document.getElementById();
+                let title = document.getElementById('add-title-input').value;
+                let description = document.getElementById('add-description-input').value;
+                let links = {}
+                for (let i = 1; i <= numLinks; i++) {
+                    let linkName = document.getElementById(`add-link-name-${i}`).value
+                    let linkUrl = document.getElementById(`add-link-url-${i}`).value
+                    links[i] = { name: linkName, url: linkUrl}
+                }
+
+                console.log("Create: ")
+                console.log("Title: ", title)
+                console.log("Description: ", description)
+                for (const link of Object.values(links)) { 
+                    console.log("Link name: ", link.name)
+                    console.log("Link Url: ", link.url)
+                }
+
+                
+
+                if (Object.keys(links).length > 0) {
+                    console.log("test 2 passed")
+                    console.log("length: ", Object.keys(links).length)
+                    if (title != '' && description != '') {
+                        console.log("passed test1");
+                        const response = await fetch('/api/create-project', {
+                            method: "POST",
+                            headers: {
+                                "Content-type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                title: title,
+                                description: description,
+                                links: links
+                            })
+                        })
+                    }
+                } else {
+                    console.log("test 2 failed - empty links")
+                }
 
 
             }

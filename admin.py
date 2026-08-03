@@ -39,3 +39,27 @@ def save_link():
         return jsonify({"success": True})
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500
+
+@admin_bp.route("/api/create-project", methods=["POST"])
+@role_required('admin')
+def create_project():
+    data = request.get_json()
+    title = data.get('title')
+    description = data.get('description')
+    links = data.get('links')
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    try:
+        cursor.execute(
+            'insert into Projects (title, description) values (%s, %s)',
+            (title, description)
+        )
+        new_id = cursor.lastrowid
+        for link in links.values():
+            cursor.execute (
+                'insert into ProjectLinks (linkName, link, projectID) values (%s,%s,%s)',
+                (link['name'], link['url'], new_id)
+            )
+        mysql.connection.commit()
+        return jsonify({"success": True, "id": new_id})
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
