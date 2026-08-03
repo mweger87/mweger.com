@@ -258,6 +258,13 @@
                                 links: links
                             })
                         })
+                        if (response.ok) {
+                            modal.style.display = "none";
+                            console.log("created successfully");
+                            load_projects();
+                        } else {
+                            console.log("Failed to create")
+                        }
                     }
                 } else {
                     console.log("test 2 failed - empty links")
@@ -359,6 +366,8 @@
 
                     if (response.ok) {
                         console.log("save success");
+                        modal.style.display = "none";
+                        load_projects();
                     }
                     else {
                         console.log("save failed");
@@ -379,6 +388,8 @@
 
                     if (response.ok) {
                         console.log("deleted project ", projectID)
+                        modal.style.display = "none";
+                        load_projects();
                     }
                     else {
                         console.log("Failed to delete project: ", projectID)
@@ -404,6 +415,8 @@
 
                         if (response.ok) {
                             console.log("save success");
+                            modal.style.display = "none";
+                            load_projects();
                         }
                         else {
                             console.log("save failed");
